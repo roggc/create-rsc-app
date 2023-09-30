@@ -1,0 +1,24 @@
+{
+  "name": "create-rsc-app",
+  "version": "1.0.0",
+  "description": "Create a React Server Components app, optionally with SSR (Server Side Rendering)",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "create-rsc-app": "cli.js"
+  },
+  "keywords": [
+    "React Server Components",
+    "Server Side Rendering",
+    "React",
+    "Setup"
+  ],
+  "author": "roger gomez castells (roggc)",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^11.0.0"
+  }
+}
