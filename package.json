@@ -1,6 +1,6 @@
 {
   "name": "create-rsc-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create a React Server Components app, optionally with SSR (Server Side Rendering)",
   "type": "module",
   "main": "index.js",
