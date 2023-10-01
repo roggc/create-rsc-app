@@ -35,14 +35,23 @@ program
         // Change to the project directory
         process.chdir(projectPath);
 
-        // Install project dependencies
-        exec("npm install", (error, stdout, stderr) => {
+        exec("git remote remove origin", (error, stdout, stderr) => {
           if (error) {
-            console.error(`Error installing dependencies: ${error}`);
+            console.error(`Error removing the 'origin' remote: ${error}`);
             return;
           }
 
-          console.log("Project setup complete.");
+          console.log("'origin' remote removed successfully.");
+
+          // Install project dependencies
+          exec("npm install", (error, stdout, stderr) => {
+            if (error) {
+              console.error(`Error installing dependencies: ${error}`);
+              return;
+            }
+
+            console.log("Project setup complete.");
+          });
         });
       }
     );
