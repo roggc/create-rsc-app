@@ -4,6 +4,7 @@ import { program } from "commander";
 // import packageJson from "./package.json";
 import { exec } from "child_process";
 import path from "path";
+import fs from "fs";
 
 // program.version(packageJson.version);
 
@@ -35,22 +36,56 @@ program
         // Change to the project directory
         process.chdir(projectPath);
 
-        exec("git remote remove origin", (error, stdout, stderr) => {
+        // Remove the existing .git directory
+        exec("rm -rf .git", (error, stdout, stderr) => {
           if (error) {
-            console.error(`Error removing the 'origin' remote: ${error}`);
+            console.error(
+              `Error removing the existing .git directory: ${error}`
+            );
             return;
           }
 
-          console.log("'origin' remote removed successfully.");
-
-          // Install project dependencies
-          exec("npm install", (error, stdout, stderr) => {
+          // Initialize a new git repository
+          exec("git init", (error, stdout, stderr) => {
             if (error) {
-              console.error(`Error installing dependencies: ${error}`);
+              console.error(
+                `Error initializing a new git repository: ${error}`
+              );
               return;
             }
 
-            console.log("Project setup complete.");
+            // Add all files to the new repository
+            exec("git add .", (error, stdout, stderr) => {
+              if (error) {
+                console.error(`Error adding files to the repository: ${error}`);
+                return;
+              }
+
+              // Commit the changes
+              exec(
+                'git commit -m "Initial commit"',
+                (error, stdout, stderr) => {
+                  if (error) {
+                    console.error(
+                      `Error creating the initial commit: ${error}`
+                    );
+                    return;
+                  }
+
+                  console.log("Initial commit created successfully.");
+
+                  // Install project dependencies
+                  exec("npm install", (error, stdout, stderr) => {
+                    if (error) {
+                      console.error(`Error installing dependencies: ${error}`);
+                      return;
+                    }
+
+                    console.log("Project setup complete.");
+                  });
+                }
+              );
+            });
           });
         });
       }
